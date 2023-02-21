@@ -29,6 +29,49 @@ Test notebooks are under "./work" folder
 
 <br/>
 
+## Starter code
+
+```python
+import os
+os.environ['PYSPARK_SUBMIT_ARGS'] = '--packages io.delta:delta-core_2.12:2.2.0 --conf spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension --conf spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog pyspark-shell'
+### import Spark libraries
+from pyspark.sql import SparkSession
+import pyspark.sql.functions as F
+from delta import *
+
+### spark package maven coordinates - in case you are loading more than just delta
+spark_packages_list = [
+    'io.delta:delta-core_2.12:2.2.0',
+]
+spark_packages = ",".join(spark_packages_list)
+
+### SparkSession 
+spark = (
+    SparkSession.builder
+    .config("spark.jars.packages", spark_packages)
+    .config("spark.delta.logStore.class", "org.apache.spark.sql.delta.storage.S3SingleDriverLogStore")
+    .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
+    .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") 
+    .getOrCreate()
+)
+
+sc = spark.sparkContext
+
+### Python library in delta jar. 
+### Must create sparkSession before import
+from delta.tables import *
+
+# Create a table
+# To create a Delta table, write a DataFrame out in the delta format. You can use existing Spark SQL code and change the format from parquet, csv, json, and so on, to delta.
+
+data = spark.range(0, 5)
+data.write.format("delta").save("/tmp/delta-table")
+
+# Read data 
+# You read data in your Delta table by specifying the path to the files "/tmp/delta-table":
+df = spark.read.format("delta").load("/tmp/delta-table")
+df.show()
+```
 ## Stop the notebook 
 
 ```bash
