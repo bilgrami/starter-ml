@@ -5,4 +5,4 @@ docker run --name notebook -it --rm \
     bilgrami/start-ml:v1
 
 # run this in another window to copy notebooks
-# docker cp ${PWD}/work/ notebook:/home/jovyan/
+# docker cp ${PWD}/work/ notebook:/home/jovyan/work/
