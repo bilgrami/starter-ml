@@ -20,18 +20,16 @@ Note: To choose a different start stack, visit
 
 https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html
 
-# Test pySpark code 
-```python
-import pyspark 
-sc = pyspark.SparkContext('local[*]')
-# do something to prove it works
-rdd = sc.parallelize(range(1000))
-rdd.takeSample(False, 5)
-```
+## Test Notebooks
+
+Test notebooks are under "./work" folder 
+
+- ./work/hello.ipynb
+- ./work/hello-delta.ipynb
 
 <br/>
 
-# Stop the notebook 
+## Stop the notebook 
 
 ```bash
 chmod +x ./stop-notebook.sh
@@ -39,19 +37,19 @@ chmod +x ./stop-notebook.sh
 
 ```
 
-# Remove the notebook permanently
+## Remove the notebook permanently
 ```bash
 chmod +x ./remove-notebook.sh
 ./remove-notebook.sh
 ```
 ---
 
-# Misc Helper commands
-## get the random host port assigned to the container port 8888
+## Misc Helper commands
+### get the random host port assigned to the container port 8888
 ```bash
 docker port notebook 8888
 ```
-## get the notebook token from the logs
+### get the notebook token from the logs
 ```bash
 docker logs --tail 3 notebook
 ```
