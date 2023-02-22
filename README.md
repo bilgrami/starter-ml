@@ -1,35 +1,72 @@
-# starter-ml
-Machine Learning Starter Toolchain
-<br>
+# Machine Learning Starter Toolchain 
+## Docker based Jupyter Notebook with support for Delta tables
 
-# Prerequisites
-## Docker
-This requires Docker to be installed on your machine [📖 Installation Guide](https://docs.docker.com/get-docker/#supported-platforms).
+This repo contains docker based Jupyter notebook with added support of
+- Jar packages for Delta Table (delta.io)
+- jupyterlab-git extension
+
+Please read below for additional details about source Jupyter notebooks
+
+https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html
 
 ---
 
+# Getting Started
 
-# Start the notebook
+## Pre-requisites
+### Docker
+This requires Docker to be installed on your machine 
+
+[📖 Installation Guide](https://docs.docker.com/get-docker/#supported-platforms).
+
+
+## Start the notebook
 ```bash
 dos2unix ./start-notebook.sh;
 chmod +x ./start-notebook.sh;
 ./start-notebook.sh;
 ```
 ---
-Note: To choose a different start stack, visit 
 
-https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html
+## Connect with the notebook via terminal
+
+```
+# connect with the terminal
+docker exec -it notebook /bin/bash
+```
+
+## Stop the notebook
+```bash
+chmod +x ./stop-notebook.sh
+./stop-notebook.sh
+```
+
+## Remove the notebook permanently
+
+```bash
+chmod +x ./remove-notebook.sh
+./remove-notebook.sh
+```
+
+## get the random host port assigned to the container port 8888
+```bash
+docker port notebook 8888
+```
+## get the notebook token from the logs
+```bash
+docker logs --tail 3 notebook
+```
+
+---
 
 ## Test Notebooks
 
-Test notebooks are under "./work" folder 
+Following test notebooks are available
 
-- ./work/hello.ipynb
-- ./work/hello-delta.ipynb
+- ./hello.ipynb
+- ./hello-delta.ipynb
 
-<br/>
-
-## Starter code
+### Starter code for Delta table
 
 ```python
 import os
@@ -71,32 +108,10 @@ data.write.format("delta").save("/tmp/delta-table")
 # You read data in your Delta table by specifying the path to the files "/tmp/delta-table":
 df = spark.read.format("delta").load("/tmp/delta-table")
 df.show()
-```
-## Stop the notebook 
-
-```bash
-chmod +x ./stop-notebook.sh
-./stop-notebook.sh
 
 ```
 
-## Remove the notebook permanently
-```bash
-chmod +x ./remove-notebook.sh
-./remove-notebook.sh
-```
 ---
-
-## Misc Helper commands
-### get the random host port assigned to the container port 8888
-```bash
-docker port notebook 8888
-```
-### get the notebook token from the logs
-```bash
-docker logs --tail 3 notebook
-```
-
 <br>
 
 # Contribution
