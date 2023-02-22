@@ -12,3 +12,5 @@ RUN pip install delta-spark
 
 # WORKDIR /home/jovyan/work
 EXPOSE 8888
+# give permission to default notebook user jovyan
+RUN chown -R 1000 /home/jovyan/
