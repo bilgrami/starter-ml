@@ -1,9 +1,9 @@
 # Machine Learning Starter Toolchain 
 ## Docker based Jupyter Notebook with support for Delta tables
 
-This repo contains docker based Jupyter notebook with added support of
-- Jar packages for Delta Table (delta.io)
-- jupyterlab-git extension
+This repo contains docker based Jupyter notebook with added support of:
+- Python delta-spark package for Delta Table (delta.io)
+- Python jupyterlab-git package 
 
 Please read below for additional details about source Jupyter notebooks
 
